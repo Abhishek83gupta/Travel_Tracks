@@ -5,6 +5,7 @@ const { readdirSync } = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const path = require("path");
 const connectDB = require("./db/dbConnection.js")
 
 connectDB();
@@ -14,15 +15,15 @@ app.use(cors({
     origin:"*"
 }))
 
+// Server static files from the uploads and assets directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
+
+
 app.get("/hello",async(req,res)=>{
     return res.status(200).json({ success: true, message:"Server running" });
 })
 
-// const authRoutes = require("./routes/authRoutes")
-// app.use("/api", authRoutes)
-// readdirSync --> reads the directory  
-// console.log(readdirSync("./routes")) // In array form    
-// importing and using routes dynamically      
 readdirSync("./routes").map((route)=>
     app.use("/api",require(`./routes/${route}`))
 )
