@@ -32,8 +32,15 @@ const signup = async (req, res) => {
     });
     await user.save();
 
+    const accessToken = generateAccessToken(user._id);
+
     return res.status(201).json({
       success: true,
+      user : {
+        fullName : user.fullName,
+        email:user.email,
+      },
+      accessToken,
       message: "Registration Successfully",
     });
   } catch (error) {
