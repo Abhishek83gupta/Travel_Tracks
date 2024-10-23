@@ -5,13 +5,13 @@ const fs = require("fs");
 //Add Travel Tracks
 const addTravelTracks = async (req, res) => {
   // from Frontend
-  const { title, story, visistedLocation, imageUrl, visitedDate } = req.body;
+  const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
   // through middleware
   const { userId } = req.user;
 
   try {
     // Validate required fields
-    if (!title || !story || !visistedLocation || !imageUrl || !visitedDate) {
+    if (!title || !story || !visitedLocation || !imageUrl || !visitedDate) {
       return res
         .status(400)
         .json({ success: false, message: "All fields required" });
@@ -24,7 +24,7 @@ const addTravelTracks = async (req, res) => {
     const travelTracks = new TravelTracks({
       title,
       story,
-      visistedLocation,
+      visitedLocation,
       userId,
       imageUrl,
       visitedDate: parsedVisitedDate,
@@ -62,11 +62,11 @@ const editTravelTracks = async (req, res) => {
   // through middleware
   const { userId } = req.user;
   // from Frontend
-  const { title, story, visistedLocation, imageUrl, visitedDate } = req.body;
+  const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
 
   try {
     // Validate required fields
-    if (!title || !story || !visistedLocation || !imageUrl || !visitedDate) {
+    if (!title || !story || !visitedLocation || !imageUrl || !visitedDate) {
       return res
         .status(400)
         .json({ success: false, message: "All fields required" });
@@ -83,14 +83,14 @@ const editTravelTracks = async (req, res) => {
     if (!travelTrack) {
       return res
         .status(404)
-        .json({ success: false, message: "Travel tracks not found " });
+        .json({ success: false, message: "Travel Story not found " });
     }
 
     const placeholderImgurl = `http://localhost:8000/asssts/placeholder.png`;
 
     travelTrack.title = title;
     travelTrack.story = story;
-    travelTrack.visistedLocation = visistedLocation;
+    travelTrack.visitedLocation = visitedLocation;
     travelTrack.imageUrl = imageUrl || placeholderImgurl;
     travelTrack.visitedDate = parsedVisitedDate;
     await travelTrack.save();
