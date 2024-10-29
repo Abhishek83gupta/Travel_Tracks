@@ -10,7 +10,7 @@ const travelTracksSchema = new Schema({
         type: String,
         required: true,
     },
-    visistedLocation: {
+    visitedLocation: {
         type: [String],
         default: [],
     },
@@ -24,6 +24,10 @@ const travelTracksSchema = new Schema({
         required: true
     },
     imageUrl: {
+        type: String,
+        required: true
+    },
+    imagePublicId: {
         type: String,
         required: true
     },

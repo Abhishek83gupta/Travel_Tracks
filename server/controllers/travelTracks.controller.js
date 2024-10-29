@@ -5,7 +5,7 @@ const fs = require("fs");
 //Add Travel Tracks
 const addTravelTracks = async (req, res) => {
   // from Frontend
-  const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
+  const { title, story, visitedLocation, imageUrl, visitedDate, imagePublicId } = req.body;
   // through middleware
   const { userId } = req.user;
 
@@ -27,6 +27,7 @@ const addTravelTracks = async (req, res) => {
       visitedLocation,
       userId,
       imageUrl,
+      imagePublicId,
       visitedDate: parsedVisitedDate,
     });
     await travelTracks.save();
@@ -62,11 +63,11 @@ const editTravelTracks = async (req, res) => {
   // through middleware
   const { userId } = req.user;
   // from Frontend
-  const { title, story, visitedLocation, imageUrl, visitedDate } = req.body;
+  const { title, story, visitedLocation, imageUrl, visitedDate , imagePublicId} = req.body;
 
   try {
     // Validate required fields
-    if (!title || !story || !visitedLocation || !imageUrl || !visitedDate) {
+    if (!title || !story || !visitedLocation || !visitedDate || !imagePublicId) {
       return res
         .status(400)
         .json({ success: false, message: "All fields required" });
@@ -86,13 +87,14 @@ const editTravelTracks = async (req, res) => {
         .json({ success: false, message: "Travel Story not found " });
     }
 
-    const placeholderImgurl = `http://localhost:8000/asssts/placeholder.png`;
+    const placeholderImgurl = `http://localhost:8000/assets/placeholder.png`;
 
     travelTrack.title = title;
     travelTrack.story = story;
     travelTrack.visitedLocation = visitedLocation;
     travelTrack.imageUrl = imageUrl || placeholderImgurl;
     travelTrack.visitedDate = parsedVisitedDate;
+    travelTrack.imagePublicId = imagePublicId;
     await travelTrack.save();
 
     res.status(200).json({ success: true, message: "Update Successful " });
