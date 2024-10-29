@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 app.use(express.json())
 app.use(cors({
-    origin:"*"
+    origin:process.env.CLIENT_URL
 }))
 
 // Server static files from the uploads and assets directory
