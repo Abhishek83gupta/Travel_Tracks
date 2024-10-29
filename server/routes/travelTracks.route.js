@@ -14,7 +14,7 @@ const verifyToken = require("../middlewares/auth.middleware");
 
 router.post("/add-travel-tracks", verifyToken, addTravelTracks);
 router.get("/get-all-travel-tracks", verifyToken, getAllTravelTracks);
-router.post("/edit-travel-tracks/:id", verifyToken, editTravelTracks);
+router.put("/edit-travel-tracks/:id", verifyToken, editTravelTracks);
 router.delete("/delete-travel-tracks/:id", verifyToken, deleteTravelTracks);
 router.put("/update-is-favourite/:id", verifyToken, updateIsFavourite);
 router.get("/search", verifyToken, searchTravelTracks);

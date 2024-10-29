@@ -42,7 +42,7 @@ const Signup = () => {
       //handle successful response
       if (data.success) {
         localStorage.setItem("token", data.accessToken);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       if (
